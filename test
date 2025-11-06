@@ -1,0 +1,16 @@
+from PIL import Image
+
+# Load the image
+image = Image.open("github_qr.png").convert("RGBA")
+pixels = image.load()
+
+# Loop through all pixels
+for x in range(image.width):
+    for y in range(image.height):
+        r, g, b, a = pixels[x, y]
+        # Only modify black pixels (not transparent ones)
+        if (r, g, b) == (0, 0, 0) and a > 0:
+            pixels[x, y] = (255, 255, 255, a)
+
+# Save the modified image
+image.save("github_qr_2.png")
